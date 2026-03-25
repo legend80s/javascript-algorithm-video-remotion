@@ -76,7 +76,6 @@ export const SortBar: React.FC<SortBarProps> = ({
         height,
         background: `linear-gradient(180deg, ${colors[0]} 0%, ${colors[1]} 100%)`,
         borderRadius: `${barWidth / 2}px`,
-        // borderRadius: `${barWidth / 2}px ${barWidth / 2}px 0 0`,
         transform: `translateY(${bounce}px) scale(${scale})`,
         boxShadow: `0 0 ${glow}px rgba(${glowColor}, ${glow > 0 ? 0.6 : 0})`,
         display: "flex",

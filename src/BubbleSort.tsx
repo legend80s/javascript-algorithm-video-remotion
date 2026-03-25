@@ -44,6 +44,21 @@ export const BubbleSort: React.FC = () => {
   const currentStep = stepIndex >= 0 ? steps[stepIndex] : null
   const currentArray = currentStep ? currentStep.array : INITIAL_ARRAY
 
+  const sortedIndices = currentStep?.sorted ?? []
+
+  const calcConsecutive = (indices: number[], n: number) => {
+    let count = 0
+    for (let i = n - 1; i >= 0; i--) {
+      if (indices.includes(i)) count++
+      else break
+    }
+    return count
+  }
+
+  const n = INITIAL_ARRAY.length
+  const consecutiveSorted = calcConsecutive(sortedIndices, n)
+  const dividerX = (n - consecutiveSorted) * 92 - 7
+
   const titleOpacity = interpolate(frame, [0, 15], [0, 1], {
     extrapolateRight: "clamp",
   })
@@ -178,6 +193,20 @@ export const BubbleSort: React.FC = () => {
           height: 400,
         }}
       >
+        {/* Sorted/unsorted divider line */}
+        {consecutiveSorted > 0 && consecutiveSorted < n && (
+          <div
+            style={{
+              position: "absolute",
+              bottom: "3.8rem",
+              left: dividerX,
+              width: 2,
+              height: "105%",
+              borderLeft: "2px dashed rgba(46, 204, 113, 0.8)",
+            }}
+          />
+        )}
+
         {currentArray.map((value, i) => {
           const isComparing = currentStep?.comparing.includes(i) ?? false
           const isSwapping = currentStep?.swapping.includes(i) ?? false
@@ -255,7 +284,8 @@ export const BubbleSort: React.FC = () => {
         >
           交换次数: {swapCount}
         </div>
-        <div
+
+        {/* <div
           className="text-2xl"
           style={{
             background: currentStep?.swapping.length
@@ -275,8 +305,8 @@ export const BubbleSort: React.FC = () => {
             textAlign: "center",
           }}
         >
-          {currentStep?.description ?? "Ready!"}
-        </div>
+          {currentStep?.description}
+        </div> */}
       </div>
 
       {/* Celebration */}

@@ -1,11 +1,11 @@
-import { ArrowRightLeft } from "lucide-react"
+// import { ArrowRightLeft } from "lucide-react"
 
 export interface SortStep {
   array: number[]
   comparing: number[]
   swapping: number[]
   sorted: number[]
-  description: string | React.ReactElement
+  description?: string | React.ReactElement
   passIndex?: number
   compareIndex?: number
 }
@@ -20,19 +20,19 @@ export function generateBubbleSortSteps(input: number[]): SortStep[] {
     comparing: [],
     swapping: [],
     sorted: [...sorted],
-    description: "Let's start sorting!",
+    // description: "Let's start sorting!",
   })
 
   const n = arr.length
   for (let i = 0; i < n - 1; i++) {
     for (let j = 0; j < n - 1 - i; j++) {
-      const bigger = arr[j] > arr[j + 1]
+      // const bigger = arr[j] > arr[j + 1]
       steps.push({
         array: [...arr],
         comparing: [j, j + 1],
         swapping: [],
         sorted: [...sorted],
-        description: `${arr[j]} > ${arr[j + 1]} ? ${bigger ? "✅" : "❌"}`,
+        // description: `${arr[j]} > ${arr[j + 1]} ? ${bigger ? "✅" : "❌"}`,
         passIndex: i,
         compareIndex: j,
       })
@@ -43,11 +43,11 @@ export function generateBubbleSortSteps(input: number[]): SortStep[] {
           comparing: [],
           swapping: [j, j + 1],
           sorted: [...sorted],
-          description: (
-            <span className="flex gap-1 justify-center items-center">
-              {arr[j]} <ArrowRightLeft /> {arr[j + 1]}
-            </span>
-          ),
+          // description: (
+          //   <span className="flex gap-1 justify-center items-center">
+          //     {arr[j]} <ArrowRightLeft /> {arr[j + 1]}
+          //   </span>
+          // ),
           passIndex: i,
           compareIndex: j,
         })
