@@ -271,8 +271,8 @@ export const BubbleSort: React.FC = () => {
           <div
             style={{
               position: "absolute",
-              top: "45%",
-              left: "50%",
+              top: "38%",
+              left: "46%",
               transform: `translate(-50%, -50%) scale(${celebrationScale})`,
               fontSize: 64,
               fontWeight: 900,
@@ -280,6 +280,7 @@ export const BubbleSort: React.FC = () => {
               textShadow:
                 "0 0 30px rgba(254,202,87,0.8), 0 0 60px rgba(254,202,87,0.4)",
               fontFamily: "system-ui, sans-serif",
+              rotate: '10deg',
             }}
           >
             Sorted! 🎉
