@@ -12,7 +12,7 @@ import { SoundEffects } from "./SoundEffects"
 import {
   generateBubbleSortSteps,
   INITIAL_ARRAY,
-  RAINBOW_COLORS,
+  VALUE_COLORS,
 } from "./utils/sort"
 
 const INTRO_FRAMES = 75
@@ -188,7 +188,7 @@ export const BubbleSort: React.FC = () => {
               key={`bar-${value}-${i}`}
               value={value}
               maxValue={maxVal}
-              colors={RAINBOW_COLORS[i] as [string, string]}
+              colors={VALUE_COLORS[value] as [string, string]}
               isComparing={isComparing}
               isSwapping={isSwapping}
               isSorted={isSorted}

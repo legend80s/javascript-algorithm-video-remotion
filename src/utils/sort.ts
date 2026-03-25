@@ -67,7 +67,7 @@ export function generateBubbleSortSteps(input: number[]): SortStep[] {
 
 export const INITIAL_ARRAY = [64, 34, 25, 12, 22, 11, 90, 45];
 
-export const RAINBOW_COLORS = [
+export const RAINBOW_COLORS: [string, string][] = [
   ["#FF6B6B", "#EE5A5A"],
   ["#FF9F43", "#EE8E32"],
   ["#FECA57", "#EDB946"],
@@ -77,3 +77,8 @@ export const RAINBOW_COLORS = [
   ["#54A0FF", "#438FEE"],
   ["#00D2D3", "#00C1C2"],
 ];
+
+export const VALUE_COLORS: Record<number, [string, string]> = {};
+INITIAL_ARRAY.forEach((val, i) => {
+  VALUE_COLORS[val] = RAINBOW_COLORS[i];
+});
