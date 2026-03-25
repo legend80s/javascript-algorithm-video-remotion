@@ -77,7 +77,7 @@ public/              # Static assets (fonts, images, audio, video)
 
 - Tailwind v4 is configured via `@remotion/tailwind-v4`
 - Import Tailwind in `index.css`: `@import "tailwindcss";`
-- Use Tailwind classes directly on elements in JSX
+- Not use inline styles SHOULD USE Tailwind classes directly on elements in JSX
 
 ### Remotion Conventions
 

@@ -151,7 +151,7 @@ export const BubbleSort: React.FC = () => {
             letterSpacing: 2,
           }}
         >
-          Bubble Sort
+          排序算法 ①：冒泡排序
         </div>
         <div
           style={{
@@ -163,7 +163,7 @@ export const BubbleSort: React.FC = () => {
             fontFamily: "system-ui, sans-serif",
           }}
         >
-          Dance Party 💃
+          排序 Dance Party 💃
         </div>
       </div>
 
@@ -202,12 +202,9 @@ export const BubbleSort: React.FC = () => {
 
       {/* Info panel */}
       <div
+        className="absolute w-full flex justify-center items-center"
         style={{
-          position: "absolute",
           bottom: 50,
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
           gap: 40,
           opacity: infoOpacity,
         }}
@@ -224,7 +221,7 @@ export const BubbleSort: React.FC = () => {
             backdropFilter: "blur(10px)",
           }}
         >
-          Comparisons: {comparisonCount}
+          比较次数: {comparisonCount}
         </div>
         <div
           style={{
@@ -238,9 +235,10 @@ export const BubbleSort: React.FC = () => {
             backdropFilter: "blur(10px)",
           }}
         >
-          Swaps: {swapCount}
+          交换次数: {swapCount}
         </div>
         <div
+          className="text-2xl"
           style={{
             background: currentStep?.swapping.length
               ? "rgba(255,159,67,0.3)"
@@ -253,7 +251,6 @@ export const BubbleSort: React.FC = () => {
             padding: "10px 24px",
             color: "white",
             fontFamily: "system-ui, sans-serif",
-            fontSize: 16,
             fontWeight: 600,
             backdropFilter: "blur(10px)",
             minWidth: 220,
@@ -280,10 +277,10 @@ export const BubbleSort: React.FC = () => {
               textShadow:
                 "0 0 30px rgba(254,202,87,0.8), 0 0 60px rgba(254,202,87,0.4)",
               fontFamily: "system-ui, sans-serif",
-              rotate: '10deg',
+              rotate: "10deg",
             }}
           >
-            Sorted! 🎉
+            排序完成！🎉
           </div>
         </>
       )}
