@@ -8,6 +8,8 @@ This is a [Remotion](https://remotion.dev) project for creating algorithmic art 
 
 ## Commands
 
+下载 GitHub 资源使用 <https://cdn.gh-proxy.org/> 前缀。
+
 ```bash
 # Install dependencies
 pnpm i

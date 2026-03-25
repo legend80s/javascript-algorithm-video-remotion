@@ -1,72 +1,79 @@
+/** biome-ignore-all lint/suspicious/noArrayIndexKey: <explanation> */
 import {
-  useCurrentFrame,
-  useVideoConfig,
+  AbsoluteFill,
   interpolate,
   spring,
-  AbsoluteFill,
-} from "remotion";
-import { SortBar } from "./SortBar";
-import { Particles } from "./Particles";
+  useCurrentFrame,
+  useVideoConfig,
+} from "remotion"
+import { Particles } from "./Particles"
+import { SortBar } from "./SortBar"
+import { SoundEffects } from "./SoundEffects"
 import {
   generateBubbleSortSteps,
   INITIAL_ARRAY,
   RAINBOW_COLORS,
-} from "./utils/sort";
+} from "./utils/sort"
 
-const INTRO_FRAMES = 75;
-const SETUP_FRAMES = 50;
-const FRAMES_PER_STEP = 20;
-const CELEBRATION_FRAMES = 90;
+const INTRO_FRAMES = 75
+const SETUP_FRAMES = 50
+const FRAMES_PER_STEP = 20
+const CELEBRATION_FRAMES = 90
 
 export const BubbleSort: React.FC = () => {
-  const frame = useCurrentFrame();
-  const { fps, width, height } = useVideoConfig();
+  const frame = useCurrentFrame()
+  const { fps, width, height } = useVideoConfig()
 
-  const steps = generateBubbleSortSteps(INITIAL_ARRAY);
-  const maxVal = Math.max(...INITIAL_ARRAY);
+  const steps = generateBubbleSortSteps(INITIAL_ARRAY)
+  const maxVal = Math.max(...INITIAL_ARRAY)
 
-  const sortStart = INTRO_FRAMES + SETUP_FRAMES;
-  const sortEnd = sortStart + steps.length * FRAMES_PER_STEP;
-  const isSorting = frame >= sortStart && frame < sortEnd;
-  const isCelebrating = frame >= sortEnd;
+  const sortStart = INTRO_FRAMES + SETUP_FRAMES
+  const sortEnd = sortStart + steps.length * FRAMES_PER_STEP
+  const isSorting = frame >= sortStart && frame < sortEnd
+  const isCelebrating = frame >= sortEnd
 
   const stepIndex = isSorting
     ? Math.min(
         Math.floor((frame - sortStart) / FRAMES_PER_STEP),
-        steps.length - 1
+        steps.length - 1,
       )
     : isCelebrating
       ? steps.length - 1
-      : -1;
+      : -1
 
-  const currentStep = stepIndex >= 0 ? steps[stepIndex] : null;
-  const currentArray = currentStep ? currentStep.array : INITIAL_ARRAY;
+  const currentStep = stepIndex >= 0 ? steps[stepIndex] : null
+  const currentArray = currentStep ? currentStep.array : INITIAL_ARRAY
 
   const titleOpacity = interpolate(frame, [0, 15], [0, 1], {
     extrapolateRight: "clamp",
-  });
+  })
   const titleScale = spring({
     frame,
     fps,
     config: { damping: 6, stiffness: 120 },
-  });
+  })
 
   const subtitleOpacity = interpolate(frame, [20, 35], [0, 1], {
     extrapolateRight: "clamp",
-  });
+  })
 
-  const infoOpacity = isSorting || isCelebrating ? 1 : 0;
+  const infoOpacity = isSorting || isCelebrating ? 1 : 0
 
-  const bgHue = interpolate(frame, [0, sortEnd + CELEBRATION_FRAMES], [220, 280], {
-    extrapolateRight: "clamp",
-  });
+  const bgHue = interpolate(
+    frame,
+    [0, sortEnd + CELEBRATION_FRAMES],
+    [220, 280],
+    {
+      extrapolateRight: "clamp",
+    },
+  )
 
   const comparisonCount = steps
     .slice(0, stepIndex + 1)
-    .filter((s) => s.comparing.length > 0).length;
+    .filter((s) => s.comparing.length > 0).length
   const swapCount = steps
     .slice(0, stepIndex + 1)
-    .filter((s) => s.swapping.length > 0).length;
+    .filter((s) => s.swapping.length > 0).length
 
   const celebrationScale = isCelebrating
     ? spring({
@@ -74,7 +81,7 @@ export const BubbleSort: React.FC = () => {
         fps,
         config: { damping: 5, stiffness: 100 },
       })
-    : 0;
+    : 0
 
   return (
     <AbsoluteFill
@@ -90,14 +97,14 @@ export const BubbleSort: React.FC = () => {
         const bx = interpolate(
           Math.sin(frame * 0.01 + i * 1.3),
           [-1, 1],
-          [0, width]
-        );
+          [0, width],
+        )
         const by = interpolate(
           Math.cos(frame * 0.008 + i * 0.9),
           [-1, 1],
-          [0, height]
-        );
-        const bs = 30 + Math.sin(i * 2.1) * 20;
+          [0, height],
+        )
+        const bs = 30 + Math.sin(i * 2.1) * 20
 
         return (
           <div
@@ -112,8 +119,15 @@ export const BubbleSort: React.FC = () => {
               background: `radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%)`,
             }}
           />
-        );
+        )
       })}
+
+      {/* Sound effects */}
+      <SoundEffects
+        steps={steps}
+        sortStart={sortStart}
+        framesPerStep={FRAMES_PER_STEP}
+      />
 
       {/* Title */}
       <div
@@ -165,12 +179,9 @@ export const BubbleSort: React.FC = () => {
         }}
       >
         {currentArray.map((value, i) => {
-          const isComparing =
-            currentStep?.comparing.includes(i) ?? false;
-          const isSwapping =
-            currentStep?.swapping.includes(i) ?? false;
-          const isSorted =
-            currentStep?.sorted.includes(i) ?? false;
+          const isComparing = currentStep?.comparing.includes(i) ?? false
+          const isSwapping = currentStep?.swapping.includes(i) ?? false
+          const isSorted = currentStep?.sorted.includes(i) ?? false
 
           return (
             <SortBar
@@ -185,7 +196,7 @@ export const BubbleSort: React.FC = () => {
               totalBars={INITIAL_ARRAY.length}
               entranceDelay={INTRO_FRAMES}
             />
-          );
+          )
         })}
       </div>
 
@@ -276,5 +287,5 @@ export const BubbleSort: React.FC = () => {
         </>
       )}
     </AbsoluteFill>
-  );
-};
+  )
+}
