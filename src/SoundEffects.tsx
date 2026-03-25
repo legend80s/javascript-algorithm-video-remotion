@@ -28,7 +28,7 @@ export const SoundEffects: React.FC<SoundEffectsProps> = ({
     } else if (step.comparing.length > 0 && !nextStep?.swapping.length) {
       audioElements.push(
         <Sequence key={`no-swap-${stepFrame}`} from={stepFrame} layout="none">
-          <Audio src={staticFile("sfx/back-001.mp3")} volume={0.4} />
+          <Audio src={staticFile("sfx/back-001.mp3")} volume={0.5} />
         </Sequence>,
       )
     }

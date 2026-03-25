@@ -194,18 +194,34 @@ export const BubbleSort: React.FC = () => {
         }}
       >
         {/* Sorted/unsorted divider line */}
-        {consecutiveSorted > 0 && consecutiveSorted < n && (
-          <div
-            style={{
-              position: "absolute",
-              bottom: "3.8rem",
-              left: dividerX,
-              width: 2,
-              height: "105%",
-              borderLeft: "2px dashed rgba(46, 204, 113, 0.8)",
-            }}
-          />
-        )}
+        {consecutiveSorted > 0 &&
+          consecutiveSorted < n &&
+          (() => {
+            const firstSortedIdx = n - consecutiveSorted
+            const firstSortedVal = currentArray[firstSortedIdx]
+            const dividerHeight =
+              spring({
+                frame,
+                fps,
+                delay: INTRO_FRAMES + firstSortedIdx * 3,
+                config: { damping: 8, stiffness: 200, mass: 0.8 },
+              }) *
+              (firstSortedVal / maxVal) *
+              380
+
+            return (
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: 100,
+                  left: dividerX,
+                  width: 2,
+                  height: dividerHeight - 9,
+                  borderLeft: "2px dashed rgba(46, 204, 113, 0.8)",
+                }}
+              />
+            )
+          })()}
 
         {currentArray.map((value, i) => {
           const isComparing = currentStep?.comparing.includes(i) ?? false
