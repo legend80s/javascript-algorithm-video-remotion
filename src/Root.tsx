@@ -8,7 +8,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="BubbleSort"
         component={MyComposition}
-        durationInFrames={540}
+        durationInFrames={1275}
         fps={30}
         width={1280}
         height={720}
