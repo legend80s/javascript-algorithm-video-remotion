@@ -1,15 +1,15 @@
-import { spring, useCurrentFrame, useVideoConfig, interpolate } from "remotion";
+import { interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion"
 
 interface SortBarProps {
-  value: number;
-  maxValue: number;
-  colors: [string, string];
-  isComparing: boolean;
-  isSwapping: boolean;
-  isSorted: boolean;
-  index: number;
-  totalBars: number;
-  entranceDelay: number;
+  value: number
+  maxValue: number
+  colors: [string, string]
+  isComparing: boolean
+  isSwapping: boolean
+  isSorted: boolean
+  index: number
+  totalBars: number
+  entranceDelay: number
 }
 
 export const SortBar: React.FC<SortBarProps> = ({
@@ -23,33 +23,29 @@ export const SortBar: React.FC<SortBarProps> = ({
   totalBars,
   entranceDelay,
 }) => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const frame = useCurrentFrame()
+  const { fps } = useVideoConfig()
 
   const entrance = spring({
     frame,
     fps,
     delay: entranceDelay + index * 3,
     config: { damping: 8, stiffness: 200, mass: 0.8 },
-  });
+  })
 
-  const height = interpolate(
-    entrance,
-    [0, 1],
-    [0, (value / maxValue) * 380]
-  );
+  const height = interpolate(entrance, [0, 1], [0, (value / maxValue) * 380])
 
   const bounce = isComparing
     ? Math.sin(frame * 0.5) * 4
     : isSwapping
       ? Math.sin(frame * 0.3) * 8
-      : 0;
+      : 0
 
   const scale = isSwapping
     ? 1.08 + Math.sin(frame * 0.4) * 0.05
     : isComparing
       ? 1.04
-      : 1;
+      : 1
 
   const glow = isSwapping
     ? interpolate(Math.sin(frame * 0.4), [-1, 1], [10, 25])
@@ -57,7 +53,7 @@ export const SortBar: React.FC<SortBarProps> = ({
       ? interpolate(Math.sin(frame * 0.5), [-1, 1], [5, 15])
       : isSorted
         ? 12
-        : 0;
+        : 0
 
   const glowColor = isSwapping
     ? "255, 159, 67"
@@ -65,10 +61,10 @@ export const SortBar: React.FC<SortBarProps> = ({
       ? "255, 255, 255"
       : isSorted
         ? "255, 215, 0"
-        : "0, 0, 0";
+        : "0, 0, 0"
 
-  const barWidth = Math.min(80, (1000 - (totalBars - 1) * 12) / totalBars);
-  const leftPos = index * (barWidth + 12);
+  const barWidth = Math.min(80, (1000 - (totalBars - 1) * 12) / totalBars)
+  const leftPos = index * (barWidth + 12)
 
   return (
     <div
@@ -79,13 +75,14 @@ export const SortBar: React.FC<SortBarProps> = ({
         width: barWidth,
         height,
         background: `linear-gradient(180deg, ${colors[0]} 0%, ${colors[1]} 100%)`,
-        borderRadius: `${barWidth / 2}px ${barWidth / 2}px 0 0`,
+        borderRadius: `${barWidth / 2}px`,
+        // borderRadius: `${barWidth / 2}px ${barWidth / 2}px 0 0`,
         transform: `translateY(${bounce}px) scale(${scale})`,
         boxShadow: `0 0 ${glow}px rgba(${glowColor}, ${glow > 0 ? 0.6 : 0})`,
         display: "flex",
         alignItems: "flex-start",
         justifyContent: "center",
-        paddingTop: 8,
+        paddingTop: value > 8 ? 8 : 3,
         fontWeight: 800,
         fontSize: Math.min(18, barWidth * 0.3),
         color: "white",
@@ -93,6 +90,15 @@ export const SortBar: React.FC<SortBarProps> = ({
       }}
     >
       {height > 30 && value}
+
+      <span
+        className="absolute bottom-[-2em] text-xl"
+        style={{
+          color: colors[1],
+        }}
+      >
+        {index}
+      </span>
     </div>
-  );
-};
+  )
+}

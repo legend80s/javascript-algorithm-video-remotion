@@ -163,7 +163,7 @@ export const BubbleSort: React.FC = () => {
             fontFamily: "system-ui, sans-serif",
           }}
         >
-          排序 Dance Party 💃
+          排序派对开始咯 💃
         </div>
       </div>
 
@@ -171,7 +171,7 @@ export const BubbleSort: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          bottom: 140,
+          bottom: 120,
           left: "50%",
           transform: `translateX(-${(INITIAL_ARRAY.length * 92) / 2}px)`,
           width: INITIAL_ARRAY.length * 92,
@@ -205,15 +205,33 @@ export const BubbleSort: React.FC = () => {
         className="absolute w-full flex justify-center items-center"
         style={{
           bottom: 50,
-          gap: 40,
+          gap: 20,
           opacity: infoOpacity,
         }}
       >
+        {currentStep?.passIndex !== undefined && (
+          <div
+            className="absolute top-[3rem]"
+            style={{
+              // background: "rgba(255,107,107,0.3)",
+              borderRadius: 12,
+              padding: "10px 20px",
+              color: "white",
+              fontFamily: "system-ui, sans-serif",
+              fontSize: 16,
+              fontWeight: 600,
+              backdropFilter: "blur(10px)",
+            }}
+          >
+            i = {currentStep.passIndex}
+          </div>
+        )}
+
         <div
           style={{
             background: "rgba(255,255,255,0.1)",
             borderRadius: 12,
-            padding: "10px 24px",
+            padding: "10px 20px",
             color: "white",
             fontFamily: "system-ui, sans-serif",
             fontSize: 16,
@@ -227,7 +245,7 @@ export const BubbleSort: React.FC = () => {
           style={{
             background: "rgba(255,255,255,0.1)",
             borderRadius: 12,
-            padding: "10px 24px",
+            padding: "10px 20px",
             color: "white",
             fontFamily: "system-ui, sans-serif",
             fontSize: 16,

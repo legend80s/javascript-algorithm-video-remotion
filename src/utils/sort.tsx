@@ -6,6 +6,8 @@ export interface SortStep {
   swapping: number[]
   sorted: number[]
   description: string | React.ReactElement
+  passIndex?: number
+  compareIndex?: number
 }
 
 export function generateBubbleSortSteps(input: number[]): SortStep[] {
@@ -31,6 +33,8 @@ export function generateBubbleSortSteps(input: number[]): SortStep[] {
         swapping: [],
         sorted: [...sorted],
         description: `${arr[j]} > ${arr[j + 1]} ? ${bigger ? "✅" : "❌"}`,
+        passIndex: i,
+        compareIndex: j,
       })
 
       if (arr[j] > arr[j + 1]) {
@@ -44,6 +48,8 @@ export function generateBubbleSortSteps(input: number[]): SortStep[] {
               {arr[j]} <ArrowRightLeft /> {arr[j + 1]}
             </span>
           ),
+          passIndex: i,
+          compareIndex: j,
         })
 
         ;[arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]
@@ -56,7 +62,7 @@ export function generateBubbleSortSteps(input: number[]): SortStep[] {
       comparing: [],
       swapping: [],
       sorted: [...sorted],
-      description: `${arr[n - 1 - i]} ✅ 不参与下次排序`,
+      description: `${arr[n - 1 - i]} 不参与下次排序 🎉`,
     })
   }
 

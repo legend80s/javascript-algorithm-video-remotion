@@ -143,6 +143,4 @@ const opacity = interpolate(frame, [0, 60], [0, 1], {
 
 ## Lint/Typecheck Workflow
 
-Always run `pnpm run lint` after making changes. This runs ESLint and TypeScript type checking together. Fix all errors before considering a task complete.
-
-There are no Cursor rules (`.cursor/rules/`, `.cursorrules`) or Copilot instructions (`.github/copilot-instructions.md`) in this repo.
+`npx tsgo --noEmit`
