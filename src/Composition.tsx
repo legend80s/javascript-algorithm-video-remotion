@@ -1,3 +1,5 @@
-export const MyComposition = () => {
-  return null;
+import { BubbleSort } from "./BubbleSort";
+
+export const MyComposition: React.FC = () => {
+  return <BubbleSort />;
 };

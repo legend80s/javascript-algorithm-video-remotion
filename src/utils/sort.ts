@@ -1,0 +1,79 @@
+export interface SortStep {
+  array: number[];
+  comparing: number[];
+  swapping: number[];
+  sorted: number[];
+  description: string;
+}
+
+export function generateBubbleSortSteps(input: number[]): SortStep[] {
+  const arr = [...input];
+  const steps: SortStep[] = [];
+  const sorted: number[] = [];
+
+  steps.push({
+    array: [...arr],
+    comparing: [],
+    swapping: [],
+    sorted: [...sorted],
+    description: "Let's start sorting!",
+  });
+
+  const n = arr.length;
+  for (let i = 0; i < n - 1; i++) {
+    for (let j = 0; j < n - 1 - i; j++) {
+      steps.push({
+        array: [...arr],
+        comparing: [j, j + 1],
+        swapping: [],
+        sorted: [...sorted],
+        description: `Comparing ${arr[j]} and ${arr[j + 1]}`,
+      });
+
+      if (arr[j] > arr[j + 1]) {
+        steps.push({
+          array: [...arr],
+          comparing: [],
+          swapping: [j, j + 1],
+          sorted: [...sorted],
+          description: `Swapping ${arr[j]} and ${arr[j + 1]}!`,
+        });
+
+        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+      }
+    }
+
+    sorted.push(n - 1 - i);
+    steps.push({
+      array: [...arr],
+      comparing: [],
+      swapping: [],
+      sorted: [...sorted],
+      description: `${arr[n - 1 - i]} is in place!`,
+    });
+  }
+
+  sorted.push(0);
+  steps.push({
+    array: [...arr],
+    comparing: [],
+    swapping: [],
+    sorted: [...sorted],
+    description: "All sorted! 🎉",
+  });
+
+  return steps;
+}
+
+export const INITIAL_ARRAY = [64, 34, 25, 12, 22, 11, 90, 45];
+
+export const RAINBOW_COLORS = [
+  ["#FF6B6B", "#EE5A5A"],
+  ["#FF9F43", "#EE8E32"],
+  ["#FECA57", "#EDB946"],
+  ["#48DBFB", "#37CAF0"],
+  ["#FF6BD6", "#EE5AC5"],
+  ["#A29BFE", "#918AED"],
+  ["#54A0FF", "#438FEE"],
+  ["#00D2D3", "#00C1C2"],
+];
