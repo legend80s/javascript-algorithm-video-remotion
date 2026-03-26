@@ -1,4 +1,5 @@
 import { interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion"
+import { MotorcycleGopher } from "./components/motorcycle"
 
 interface SortBarProps {
   value: number
@@ -7,6 +8,7 @@ interface SortBarProps {
   isComparing: boolean
   isSwapping: boolean
   isSorted: boolean
+  isPivot?: boolean
   index: number
   totalBars: number
   entranceDelay: number
@@ -19,6 +21,7 @@ export const SortBar: React.FC<SortBarProps> = ({
   isComparing,
   isSwapping,
   isSorted,
+  isPivot = false,
   index,
   totalBars,
   entranceDelay,
@@ -51,17 +54,21 @@ export const SortBar: React.FC<SortBarProps> = ({
     ? interpolate(Math.sin(frame * 0.4), [-1, 1], [10, 25])
     : isComparing
       ? interpolate(Math.sin(frame * 0.5), [-1, 1], [5, 15])
-      : isSorted
-        ? 12
-        : 0
+      : isPivot
+        ? interpolate(Math.sin(frame * 0.3), [-1, 1], [8, 20])
+        : isSorted
+          ? 12
+          : 0
 
   const glowColor = isSwapping
     ? "255, 159, 67"
     : isComparing
       ? "255, 255, 255"
-      : isSorted
+      : isPivot
         ? "255, 215, 0"
-        : "0, 0, 0"
+        : isSorted
+          ? "255, 215, 0"
+          : "0, 0, 0"
 
   const barWidth = Math.min(80, (1000 - (totalBars - 1) * 12) / totalBars)
   const leftPos = index * (barWidth + 12)
@@ -89,6 +96,11 @@ export const SortBar: React.FC<SortBarProps> = ({
       }}
     >
       {height > 30 && value}
+
+      <MotorcycleGopher
+        className="absolute top-[-3.1rem] text-xl w-[60%]"
+        bodyColor={colors[1]}
+      />
 
       <span
         className="absolute bottom-[-2em] text-xl"
