@@ -237,7 +237,7 @@ export const SelectionSort: React.FC = () => {
                     transform: "translateX(-50%)",
                   }}
                 >
-                  最小
+                  本轮最小
                 </div>
               )}
             </>
