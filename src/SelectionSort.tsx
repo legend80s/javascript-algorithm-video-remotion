@@ -1,4 +1,6 @@
 /** biome-ignore-all lint/suspicious/noArrayIndexKey: <explanation> */
+
+import { ArrowLeftRight, EllipsisVertical } from "lucide-react"
 import {
   AbsoluteFill,
   interpolate,
@@ -14,7 +16,6 @@ import {
   INITIAL_ARRAY,
   VALUE_COLORS,
 } from "./utils/sort"
-import { ArrowLeftRight } from "lucide-react"
 
 const INTRO_FRAMES = 75
 const SETUP_FRAMES = 50
@@ -275,6 +276,25 @@ export const SelectionSort: React.FC = () => {
           </div>
         )}
 
+        <div
+          className="gap-1"
+          style={{
+            background: "rgba(0,0,0,0.4)",
+            borderRadius: 12,
+            padding: "10px 16px",
+            color: "rgba(255,255,255,0.9)",
+            fontFamily: "system-ui, sans-serif",
+            fontSize: 14,
+            fontWeight: 500,
+            backdropFilter: "blur(10px)",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <span>已排序</span>
+          <EllipsisVertical size={14} color="rgba(46, 204, 113, 0.8)" />
+          <span>未排序</span>
+        </div>
         <div
           style={{
             background: "rgba(255,255,255,0.1)",
