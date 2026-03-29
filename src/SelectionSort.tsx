@@ -200,16 +200,15 @@ export const SelectionSort: React.FC = () => {
         {consecutiveSorted > 0 &&
           consecutiveSorted < n &&
           (() => {
-            const lastSortedIdx = consecutiveSorted - 1
-            const lastSortedVal = currentArray[lastSortedIdx]
+            const firstUnsortedVal = currentArray[consecutiveSorted]
             const dividerHeight =
               spring({
                 frame,
                 fps,
-                delay: INTRO_FRAMES + lastSortedIdx * 3,
+                delay: INTRO_FRAMES + consecutiveSorted * 3,
                 config: { damping: 8, stiffness: 200, mass: 0.8 },
               }) *
-              (lastSortedVal / maxVal) *
+              (firstUnsortedVal / maxVal) *
               380
 
             return (
@@ -277,12 +276,13 @@ export const SelectionSort: React.FC = () => {
         )}
 
         <div
-          className="gap-1"
+          className="gap-0"
           style={{
-            background: "rgba(0,0,0,0.4)",
+            background: "rgba(255,255,255,0.1)",
+            color: "white",
+
             borderRadius: 12,
             padding: "10px 16px",
-            color: "rgba(255,255,255,0.9)",
             fontFamily: "system-ui, sans-serif",
             fontSize: 14,
             fontWeight: 500,

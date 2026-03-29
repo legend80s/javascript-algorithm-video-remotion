@@ -10,28 +10,6 @@ This is a [Remotion](https://remotion.dev) project for creating algorithmic art 
 
 下载 GitHub 资源使用 <https://cdn.gh-proxy.org/> 前缀。
 
-```bash
-# Install dependencies
-pnpm i
-
-# Start Remotion Studio (dev preview)
-pnpm run dev          # or: pnpm exec remotion studio
-
-# Lint + typecheck (run both before finishing any task)
-pnpm run lint         # runs: eslint src && tsc
-
-# Build bundle
-pnpm run build        # runs: remotion bundle
-
-# Render video
-pnpm exec remotion render
-
-# Upgrade Remotion
-pnpm run upgrade
-```
-
-There is **no test framework** configured. If tests are needed, use Vitest (compatible with ESM + TypeScript).
-
 ## Project Structure
 
 ```
@@ -61,7 +39,6 @@ public/              # Static assets (fonts, images, audio, video)
 ### Imports
 
 - Use double quotes for strings: `import { Composition } from "remotion";`
-- CSS imports go first: `import "./index.css";`
 - Group: CSS → third-party → local (`./` or `../`)
 - Use named exports, not default exports
 - Import from `remotion` for Remotion APIs, not from `@remotion/*` subpackages (unless needed for tooling like `@remotion/cli`, `@remotion/tailwind-v4`)
@@ -69,7 +46,6 @@ public/              # Static assets (fonts, images, audio, video)
 ### Components
 
 - Use `export const` for components (arrow functions)
-- Type React components with `React.FC` when they have no props: `React.FC`
 - Component names use **PascalCase**
 - File names use **PascalCase** matching the primary export
 
@@ -77,7 +53,7 @@ public/              # Static assets (fonts, images, audio, video)
 
 - Tailwind v4 is configured via `@remotion/tailwind-v4`
 - Import Tailwind in `index.css`: `@import "tailwindcss";`
-- Not use inline styles SHOULD USE Tailwind classes directly on elements in JSX
+- Not use inline styles **SHOULD USE Tailwind classes** directly on elements in JSX
 
 ### Remotion Conventions
 
