@@ -32,6 +32,7 @@ export const Gopher = (props: IProps) => {
             mixBlendMode: "normal",
             colorInterpolation: "sRGB",
             colorInterpolationFilters: "linearRGB",
+            // @ts-expect-error
             solidColor: "#000",
             solidOpacity: 1,
             fill: "#384e54",
@@ -69,6 +70,7 @@ export const Gopher = (props: IProps) => {
             mixBlendMode: "normal",
             colorInterpolation: "sRGB",
             colorInterpolationFilters: "linearRGB",
+            // @ts-expect-error
             solidColor: "#000",
             solidOpacity: 1,
             fill: "#384e54",
@@ -103,6 +105,7 @@ export const Gopher = (props: IProps) => {
             mixBlendMode: "normal",
             colorInterpolation: "sRGB",
             colorInterpolationFilters: "linearRGB",
+            // @ts-expect-error
             solidColor: "#000",
             solidOpacity: 1,
             fill: "#384e54",
@@ -136,6 +139,7 @@ export const Gopher = (props: IProps) => {
             mixBlendMode: "normal",
             colorInterpolation: "sRGB",
             colorInterpolationFilters: "linearRGB",
+            // @ts-expect-error
             solidColor: "#000",
             solidOpacity: 1,
             fill: bodyColor,
@@ -173,6 +177,7 @@ export const Gopher = (props: IProps) => {
             mixBlendMode: "normal",
             colorInterpolation: "sRGB",
             colorInterpolationFilters: "linearRGB",
+            // @ts-expect-error
             solidColor: "#000",
             solidOpacity: 1,
             fill: "#000",
@@ -206,6 +211,7 @@ export const Gopher = (props: IProps) => {
             mixBlendMode: "normal",
             colorInterpolation: "sRGB",
             colorInterpolationFilters: "linearRGB",
+            // @ts-expect-error
             solidColor: "#000",
             solidOpacity: 1,
             fill: bodyColor,
@@ -239,6 +245,7 @@ export const Gopher = (props: IProps) => {
             mixBlendMode: "normal",
             colorInterpolation: "sRGB",
             colorInterpolationFilters: "linearRGB",
+            // @ts-expect-error
             solidColor: "#000",
             solidOpacity: 1,
             fill: bodyColor,
@@ -274,6 +281,7 @@ export const Gopher = (props: IProps) => {
             mixBlendMode: "normal",
             colorInterpolation: "sRGB",
             colorInterpolationFilters: "linearRGB",
+            // @ts-expect-error
             solidColor: "#000",
             solidOpacity: 1,
             fill: "#fff",
@@ -309,6 +317,7 @@ export const Gopher = (props: IProps) => {
             mixBlendMode: "normal",
             colorInterpolation: "sRGB",
             colorInterpolationFilters: "linearRGB",
+            // @ts-expect-error
             solidColor: "#000",
             solidOpacity: 1,
             fill: "#fff",
@@ -346,6 +355,7 @@ export const Gopher = (props: IProps) => {
             mixBlendMode: "normal",
             colorInterpolation: "sRGB",
             colorInterpolationFilters: "linearRGB",
+            // @ts-expect-error
             solidColor: "#000",
             solidOpacity: 1,
             fill: "#000",
@@ -383,6 +393,7 @@ export const Gopher = (props: IProps) => {
             mixBlendMode: "normal",
             colorInterpolation: "sRGB",
             colorInterpolationFilters: "linearRGB",
+            // @ts-expect-error
             solidColor: "#000",
             solidOpacity: 1,
             fill: "#fffcfb",
@@ -416,6 +427,7 @@ export const Gopher = (props: IProps) => {
             mixBlendMode: "normal",
             colorInterpolation: "sRGB",
             colorInterpolationFilters: "linearRGB",
+            // @ts-expect-error
             solidColor: "#000",
             solidOpacity: 1,
             fill: "#000",
@@ -449,6 +461,7 @@ export const Gopher = (props: IProps) => {
             mixBlendMode: "normal",
             colorInterpolation: "sRGB",
             colorInterpolationFilters: "linearRGB",
+            // @ts-expect-error
             solidColor: "#000",
             solidOpacity: 1,
             fill: "#c38c74",
@@ -485,6 +498,7 @@ export const Gopher = (props: IProps) => {
             mixBlendMode: "normal",
             colorInterpolation: "sRGB",
             colorInterpolationFilters: "linearRGB",
+            // @ts-expect-error
             solidColor: "#000",
             solidOpacity: 1,
             fill: "#23201f",
@@ -520,6 +534,7 @@ export const Gopher = (props: IProps) => {
             mixBlendMode: "normal",
             colorInterpolation: "sRGB",
             colorInterpolationFilters: "linearRGB",
+            // @ts-expect-error
             solidColor: "#000",
             solidOpacity: 1,
             fill: "#171311",
@@ -555,6 +570,7 @@ export const Gopher = (props: IProps) => {
             mixBlendMode: "normal",
             colorInterpolation: "sRGB",
             colorInterpolationFilters: "linearRGB",
+            // @ts-expect-error
             solidColor: "#000",
             solidOpacity: 1,
             fill: "#171311",

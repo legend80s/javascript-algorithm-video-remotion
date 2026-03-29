@@ -202,19 +202,45 @@ export const SelectionSort: React.FC = () => {
 
           const colors = VALUE_COLORS[value]
 
+          const isMin =
+            isComparing && currentStep?.comparing.length === 2
+              ? currentStep.comparing.indexOf(i) !== -1 &&
+                value ===
+                  Math.min(
+                    currentArray[currentStep.comparing[0]],
+                    currentArray[currentStep.comparing[1]],
+                  )
+              : false
+
           return (
-            <SortBar
-              key={`bar-${value}-${i}`}
-              value={value}
-              maxValue={maxVal}
-              colors={colors}
-              isComparing={isComparing}
-              isSwapping={isSwapping}
-              isSorted={isSorted}
-              index={i}
-              totalBars={INITIAL_ARRAY.length}
-              entranceDelay={INTRO_FRAMES}
-            />
+            <>
+              <SortBar
+                key={`bar-${value}-${i}`}
+                value={value}
+                maxValue={maxVal}
+                colors={colors}
+                isComparing={isComparing}
+                isSwapping={isSwapping}
+                isSorted={isSorted}
+                index={i}
+                totalBars={INITIAL_ARRAY.length}
+                entranceDelay={INTRO_FRAMES}
+              />
+              {isMin && (
+                <div
+                  className="absolute text-xs font-bold"
+                  style={{
+                    color: "#FECA57",
+                    textShadow: "0 0 8px rgba(254,202,87,0.8)",
+                    bottom: 100 + (value / maxVal) * 380 + 8,
+                    left: i * 102 + 51 - 12,
+                    transform: "translateX(-50%)",
+                  }}
+                >
+                  最小
+                </div>
+              )}
+            </>
           )
         })}
       </div>
