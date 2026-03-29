@@ -8,7 +8,7 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion"
-import { Particles } from "./Particles"
+
 import { SortBar } from "./SortBar"
 import { SoundEffects } from "./SoundEffects"
 import {
@@ -24,7 +24,7 @@ const CELEBRATION_FRAMES = 90
 
 export const SelectionSort: React.FC = () => {
   const frame = useCurrentFrame()
-  const { fps, width, height } = useVideoConfig()
+  const { fps } = useVideoConfig()
 
   const steps = generateSelectionSortSteps(INITIAL_ARRAY)
   const maxVal = Math.max(...INITIAL_ARRAY)
@@ -109,36 +109,6 @@ export const SelectionSort: React.FC = () => {
         overflow: "hidden",
       }}
     >
-      {/* Background bubbles */}
-      {Array.from({ length: 15 }, (_, i) => {
-        const bx = interpolate(
-          Math.sin(frame * 0.01 + i * 1.3),
-          [-1, 1],
-          [0, width],
-        )
-        const by = interpolate(
-          Math.cos(frame * 0.008 + i * 0.9),
-          [-1, 1],
-          [0, height],
-        )
-        const bs = 30 + Math.sin(i * 2.1) * 20
-
-        return (
-          <div
-            key={`bg-bubble-${bx.toFixed(1)}-${by.toFixed(1)}`}
-            style={{
-              position: "absolute",
-              left: bx,
-              top: by,
-              width: bs,
-              height: bs,
-              borderRadius: "50%",
-              background: `radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%)`,
-            }}
-          />
-        )
-      })}
-
       {/* Sound effects */}
       <SoundEffects
         steps={steps}
@@ -327,26 +297,23 @@ export const SelectionSort: React.FC = () => {
 
       {/* Celebration */}
       {isCelebrating && (
-        <>
-          <Particles count={70} />
-          <div
-            style={{
-              position: "absolute",
-              top: "38%",
-              left: "46%",
-              transform: `translate(-50%, -50%) scale(${celebrationScale})`,
-              fontSize: 64,
-              fontWeight: 900,
-              color: "#FECA57",
-              textShadow:
-                "0 0 30px rgba(254,202,87,0.8), 0 0 60px rgba(254,202,87,0.4)",
-              fontFamily: "system-ui, sans-serif",
-              rotate: "10deg",
-            }}
-          >
-            排序完成！🎉
-          </div>
-        </>
+        <div
+          style={{
+            position: "absolute",
+            top: "38%",
+            left: "46%",
+            transform: `translate(-50%, -50%) scale(${celebrationScale})`,
+            fontSize: 64,
+            fontWeight: 900,
+            color: "#FECA57",
+            textShadow:
+              "0 0 30px rgba(254,202,87,0.8), 0 0 60px rgba(254,202,87,0.4)",
+            fontFamily: "system-ui, sans-serif",
+            rotate: "10deg",
+          }}
+        >
+          排序完成！🎉
+        </div>
       )}
     </AbsoluteFill>
   )
