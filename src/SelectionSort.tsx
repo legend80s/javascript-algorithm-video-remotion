@@ -251,7 +251,7 @@ export const SelectionSort: React.FC = () => {
                       transform: "translateX(-50%)",
                     }}
                   >
-                    待交换 📌
+                    待交换<span className="text-[2em]">🧘</span>
                   </div>
                 )}
             </>
