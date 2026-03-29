@@ -246,7 +246,8 @@ export const SelectionSort: React.FC = () => {
                     style={{
                       // color: "#FF6B6B",
                       color: colors[1],
-                      bottom: 100 + (value / maxVal) * 380 + 8,
+                      bottom: 120 + (value / maxVal) * 380,
+                      // bottom: 20,
                       left: i * 102 + 51 - 12,
                       transform: "translateX(-50%)",
                     }}
