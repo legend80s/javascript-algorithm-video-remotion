@@ -151,7 +151,7 @@ export const SelectionSort: React.FC = () => {
             fontFamily: "system-ui, sans-serif",
           }}
         >
-          每一轮选择最小值，放到前面 <ArrowLeftRight />
+          每一轮选择最小值，交换到前面 <ArrowLeftRight />
         </div>
       </div>
 
@@ -228,16 +228,16 @@ export const SelectionSort: React.FC = () => {
               />
               {isMin && (
                 <div
-                  className="absolute text-xs font-bold"
+                  className="absolute font-bold"
                   style={{
-                    color: "#FECA57",
-                    textShadow: "0 0 8px rgba(254,202,87,0.8)",
+                    // color: "#FECA57",
+                    color: colors[1],
                     bottom: 100 + (value / maxVal) * 380 + 8,
                     left: i * 102 + 51 - 12,
                     transform: "translateX(-50%)",
                   }}
                 >
-                  本轮最小
+                  本轮最小 📌
                 </div>
               )}
             </>
