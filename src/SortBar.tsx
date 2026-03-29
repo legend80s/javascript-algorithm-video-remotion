@@ -1,5 +1,4 @@
 import { interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion"
-import { MotorcycleGopher } from "./components/motorcycle"
 
 interface SortBarProps {
   value: number
@@ -12,6 +11,8 @@ interface SortBarProps {
   index: number
   totalBars: number
   entranceDelay: number
+
+  mascot?: React.ReactNode
 }
 
 export const SortBar: React.FC<SortBarProps> = ({
@@ -25,6 +26,7 @@ export const SortBar: React.FC<SortBarProps> = ({
   index,
   totalBars,
   entranceDelay,
+  mascot,
 }) => {
   const frame = useCurrentFrame()
   const { fps } = useVideoConfig()
@@ -70,8 +72,8 @@ export const SortBar: React.FC<SortBarProps> = ({
           ? "255, 215, 0"
           : "0, 0, 0"
 
-  const barWidth = Math.min(80, (1000 - (totalBars - 1) * 12) / totalBars)
-  const leftPos = index * (barWidth + 12)
+  const barWidth = Math.min(80, (1000 - (totalBars - 1) * 22) / totalBars)
+  const leftPos = index * (barWidth + 22)
 
   return (
     <div
@@ -82,7 +84,8 @@ export const SortBar: React.FC<SortBarProps> = ({
         width: barWidth,
         height,
         background: `linear-gradient(180deg, ${colors[0]} 0%, ${colors[1]} 100%)`,
-        borderRadius: `${barWidth / 2}px`,
+        borderStartStartRadius: `${barWidth / 2.5}px`,
+        borderStartEndRadius: `${barWidth / 2.5}px`,
         transform: `translateY(${bounce}px) scale(${scale})`,
         boxShadow: `0 0 ${glow}px rgba(${glowColor}, ${glow > 0 ? 0.6 : 0})`,
         display: "flex",
@@ -97,10 +100,7 @@ export const SortBar: React.FC<SortBarProps> = ({
     >
       {height > 30 && value}
 
-      <MotorcycleGopher
-        className="absolute top-[-3.1rem] text-xl w-[60%]"
-        bodyColor={colors[1]}
-      />
+      {mascot}
 
       <span
         className="absolute bottom-[-2em] text-xl"

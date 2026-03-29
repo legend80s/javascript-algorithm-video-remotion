@@ -6,27 +6,22 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion"
-import { Gopher } from "./components/gopher"
-import { MotorcycleGopher } from "./components/motorcycle"
 import { Particles } from "./Particles"
 import { SortBar } from "./SortBar"
 import { SoundEffects } from "./SoundEffects"
-import {
-  generateBubbleSortSteps,
-  INITIAL_ARRAY,
-  VALUE_COLORS,
-} from "./utils/sort"
+import { generateQuickSortSteps, type QuickSortStep } from "./utils/quickSort"
+import { INITIAL_ARRAY, VALUE_COLORS } from "./utils/sort"
 
 const INTRO_FRAMES = 75
 const SETUP_FRAMES = 50
-const FRAMES_PER_STEP = 20
+const FRAMES_PER_STEP = 15
 const CELEBRATION_FRAMES = 90
 
-export const BubbleSort: React.FC = () => {
+export const QuickSort: React.FC = () => {
   const frame = useCurrentFrame()
   const { fps, width, height } = useVideoConfig()
 
-  const steps = generateBubbleSortSteps(INITIAL_ARRAY)
+  const steps = generateQuickSortSteps(INITIAL_ARRAY)
   const maxVal = Math.max(...INITIAL_ARRAY)
 
   const sortStart = INTRO_FRAMES + SETUP_FRAMES
@@ -43,23 +38,9 @@ export const BubbleSort: React.FC = () => {
       ? steps.length - 1
       : -1
 
-  const currentStep = stepIndex >= 0 ? steps[stepIndex] : null
+  const currentStep: QuickSortStep | null =
+    stepIndex >= 0 ? steps[stepIndex] : null
   const currentArray = currentStep ? currentStep.array : INITIAL_ARRAY
-
-  const sortedIndices = currentStep?.sorted ?? []
-
-  const calcConsecutive = (indices: number[], n: number) => {
-    let count = 0
-    for (let i = n - 1; i >= 0; i--) {
-      if (indices.includes(i)) count++
-      else break
-    }
-    return count
-  }
-
-  const n = INITIAL_ARRAY.length
-  const consecutiveSorted = calcConsecutive(sortedIndices, n)
-  const dividerX = (n - consecutiveSorted) * 102 - 12
 
   const titleOpacity = interpolate(frame, [0, 15], [0, 1], {
     extrapolateRight: "clamp",
@@ -79,7 +60,7 @@ export const BubbleSort: React.FC = () => {
   const bgHue = interpolate(
     frame,
     [0, sortEnd + CELEBRATION_FRAMES],
-    [220, 280],
+    [260, 320],
     {
       extrapolateRight: "clamp",
     },
@@ -99,6 +80,9 @@ export const BubbleSort: React.FC = () => {
         config: { damping: 5, stiffness: 100 },
       })
     : 0
+
+  const barPitch = 102
+  const n = INITIAL_ARRAY.length
 
   return (
     <AbsoluteFill
@@ -163,12 +147,12 @@ export const BubbleSort: React.FC = () => {
             fontWeight: 900,
             color: "white",
             textShadow:
-              "0 0 20px rgba(255,107,107,0.8), 0 0 40px rgba(255,107,107,0.4)",
+              "0 0 20px rgba(107,107,255,0.8), 0 0 40px rgba(107,107,255,0.4)",
             fontFamily: "system-ui, sans-serif",
             letterSpacing: 2,
           }}
         >
-          排序算法 ①：冒泡排序
+          排序算法 ②：快速排序
         </div>
         <div
           style={{
@@ -180,7 +164,7 @@ export const BubbleSort: React.FC = () => {
             fontFamily: "system-ui, sans-serif",
           }}
         >
-          小 Gopher 的排序派对开始咯 💃
+          分而治之 ⚡
         </div>
       </div>
 
@@ -190,25 +174,43 @@ export const BubbleSort: React.FC = () => {
           position: "absolute",
           bottom: 120,
           left: "50%",
-          transform: `translateX(-${(INITIAL_ARRAY.length * 92) / 2}px)`,
-          width: INITIAL_ARRAY.length * 92,
+          transform: `translateX(-${(n * barPitch) / 2}px)`,
+          width: n * barPitch,
           height: 400,
         }}
       >
-        {/* Sorted/unsorted divider line */}
-        {consecutiveSorted > 0 &&
-          consecutiveSorted < n &&
+        {/* Range highlight */}
+        {currentStep && currentStep.range[0] <= currentStep.range[1] && (
+          <div
+            style={{
+              position: "absolute",
+              bottom: 0,
+              left: currentStep.range[0] * barPitch - 6,
+              width:
+                (currentStep.range[1] - currentStep.range[0] + 1) * barPitch -
+                12,
+              height: "100%",
+              background: "rgba(162, 155, 254, 0.12)",
+              borderRadius: 12,
+              zIndex: -1,
+            }}
+          />
+        )}
+
+        {/* Pivot marker */}
+        {currentStep &&
+          currentStep.pivot >= 0 &&
+          currentStep.pivot < n &&
           (() => {
-            const firstSortedIdx = n - consecutiveSorted
-            const firstSortedVal = currentArray[firstSortedIdx]
-            const dividerHeight =
+            const pivotVal = currentArray[currentStep.pivot]
+            const markerHeight =
               spring({
                 frame,
                 fps,
-                delay: INTRO_FRAMES + firstSortedIdx * 3,
+                delay: INTRO_FRAMES + currentStep.pivot * 3,
                 config: { damping: 8, stiffness: 200, mass: 0.8 },
               }) *
-              (firstSortedVal / maxVal) *
+              (pivotVal / maxVal) *
               380
 
             return (
@@ -216,51 +218,63 @@ export const BubbleSort: React.FC = () => {
                 style={{
                   position: "absolute",
                   bottom: 100,
-                  left: dividerX,
+                  left: currentStep.pivot * barPitch + 39,
                   width: 2,
-                  height: dividerHeight - 9,
-                  borderLeft: "2px dashed rgba(46, 204, 113, 0.8)",
+                  height: markerHeight,
+                  borderLeft: "2px dashed rgba(255, 215, 0, 0.7)",
                 }}
               />
             )
           })()}
 
+        {/* Sorted markers */}
+        {currentStep?.sorted.map((idx) => {
+          if (idx === currentStep.pivot) return null
+          const sortedVal = currentArray[idx]
+          const markerHeight =
+            spring({
+              frame,
+              fps,
+              delay: INTRO_FRAMES + idx * 3,
+              config: { damping: 8, stiffness: 200, mass: 0.8 },
+            }) *
+            (sortedVal / maxVal) *
+            380
+
+          return (
+            <div
+              key={`sorted-marker-${idx}`}
+              style={{
+                position: "absolute",
+                bottom: 100,
+                left: idx * barPitch + 39,
+                width: 2,
+                height: markerHeight,
+                borderLeft: "2px dashed rgba(46, 204, 113, 0.5)",
+              }}
+            />
+          )
+        })}
+
         {currentArray.map((value, i) => {
           const isComparing = currentStep?.comparing.includes(i) ?? false
           const isSwapping = currentStep?.swapping.includes(i) ?? false
           const isSorted = currentStep?.sorted.includes(i) ?? false
-
-          const colors = VALUE_COLORS[value]
+          const isPivot = currentStep?.pivot === i
 
           return (
             <SortBar
               key={`bar-${value}-${i}`}
               value={value}
               maxValue={maxVal}
-              colors={colors}
+              colors={VALUE_COLORS[value] as [string, string]}
               isComparing={isComparing}
               isSwapping={isSwapping}
               isSorted={isSorted}
+              isPivot={isPivot}
               index={i}
-              totalBars={INITIAL_ARRAY.length}
+              totalBars={n}
               entranceDelay={INTRO_FRAMES}
-              mascot={
-                // <span className="absolute top-[-2.6rem] scale-300">
-                //   {/* 🐠 */}🐟{/* 🐡 */}
-                //   {/* 🎣 */}
-                //   <span className="absolute left-[8px] top-[-6px] text-[10px]">
-                //     🫧
-                //   </span>
-                // </span>
-                // <Gopher
-                //   className="absolute top-[-3rem] scale-170"
-                //   bodyColor={colors[1]}
-                // />
-                <MotorcycleGopher
-                  className="absolute top-[-3.1rem] text-xl w-[60%]"
-                  bodyColor={colors[1]}
-                />
-              }
             />
           )
         })}
@@ -275,11 +289,10 @@ export const BubbleSort: React.FC = () => {
           opacity: infoOpacity,
         }}
       >
-        {currentStep?.passIndex !== undefined && (
+        {currentStep?.depth !== undefined && currentStep.depth > 0 && (
           <div
-            className="absolute top-[3rem]"
             style={{
-              // background: "rgba(255,107,107,0.3)",
+              background: "rgba(162,155,254,0.3)",
               borderRadius: 12,
               padding: "10px 20px",
               color: "white",
@@ -289,7 +302,7 @@ export const BubbleSort: React.FC = () => {
               backdropFilter: "blur(10px)",
             }}
           >
-            i = {currentStep.passIndex}
+            深度: {currentStep.depth}
           </div>
         )}
 
@@ -322,13 +335,13 @@ export const BubbleSort: React.FC = () => {
           交换次数: {swapCount}
         </div>
 
-        {/* <div
+        <div
           className="text-2xl"
           style={{
             background: currentStep?.swapping.length
               ? "rgba(255,159,67,0.3)"
-              : currentStep?.comparing.length
-                ? "rgba(255,255,255,0.2)"
+              : currentStep?.pivot !== undefined && currentStep.pivot >= 0
+                ? "rgba(255,215,0,0.2)"
                 : isCelebrating
                   ? "rgba(255,215,0,0.3)"
                   : "rgba(255,255,255,0.1)",
@@ -342,8 +355,8 @@ export const BubbleSort: React.FC = () => {
             textAlign: "center",
           }}
         >
-          {currentStep?.description}
-        </div> */}
+          {currentStep?.description ?? "Ready!"}
+        </div>
       </div>
 
       {/* Celebration */}

@@ -5,9 +5,13 @@
  * All configuration options: https://remotion.dev/docs/config
  */
 
-import { Config } from "@remotion/cli/config";
-import { enableTailwind } from '@remotion/tailwind-v4';
+import { Config } from "@remotion/cli/config"
+import { enableTailwind } from "@remotion/tailwind-v4"
 
-Config.setVideoImageFormat("jpeg");
-Config.setOverwriteOutput(true);
-Config.overrideWebpackConfig(enableTailwind);
+Config.setVideoImageFormat("jpeg")
+Config.setOverwriteOutput(true)
+Config.overrideWebpackConfig(enableTailwind)
+
+Config.setBrowserExecutable(
+  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+)
