@@ -159,7 +159,7 @@ export const SelectionSort: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          bottom: 120,
+          bottom: 90,
           left: "50%",
           transform: `translateX(-${(INITIAL_ARRAY.length * 102) / 2}px)`,
           width: INITIAL_ARRAY.length * 102,
@@ -225,6 +225,11 @@ export const SelectionSort: React.FC = () => {
                 index={i}
                 totalBars={INITIAL_ARRAY.length}
                 entranceDelay={INTRO_FRAMES}
+                mascot={
+                  frame < 60 && (
+                    <span className="absolute top-[-2.9rem] scale-300">🐌</span>
+                  )
+                }
               />
               {isMin && (
                 <div
