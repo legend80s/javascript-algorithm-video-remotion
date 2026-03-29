@@ -14,6 +14,7 @@ import {
   INITIAL_ARRAY,
   VALUE_COLORS,
 } from "./utils/sort"
+import { ArrowLeftRight } from "lucide-react"
 
 const INTRO_FRAMES = 75
 const SETUP_FRAMES = 50
@@ -169,6 +170,7 @@ export const SelectionSort: React.FC = () => {
           排序算法 ②：选择排序
         </div>
         <div
+          className="flex justify-center items-center gap-1"
           style={{
             fontSize: 22,
             color: "#FECA57",
@@ -178,7 +180,7 @@ export const SelectionSort: React.FC = () => {
             fontFamily: "system-ui, sans-serif",
           }}
         >
-          小 Gopher 的排序派对继续咯 💃
+          每一轮选择最小值，放到前面 <ArrowLeftRight />
         </div>
       </div>
 
