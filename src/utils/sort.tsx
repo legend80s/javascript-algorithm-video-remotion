@@ -10,6 +10,70 @@ export interface SortStep {
   compareIndex?: number
 }
 
+export function generateSelectionSortSteps(input: number[]): SortStep[] {
+  const arr = [...input]
+  const steps: SortStep[] = []
+  const sorted: number[] = []
+
+  steps.push({
+    array: [...arr],
+    comparing: [],
+    swapping: [],
+    sorted: [...sorted],
+  })
+
+  const n = arr.length
+  for (let i = 0; i < n - 1; i++) {
+    let minIdx = i
+
+    for (let j = i + 1; j < n; j++) {
+      steps.push({
+        array: [...arr],
+        comparing: [minIdx, j],
+        swapping: [],
+        sorted: [...sorted],
+        passIndex: i,
+        compareIndex: j,
+      })
+
+      if (arr[j] < arr[minIdx]) {
+        minIdx = j
+      }
+    }
+
+    if (minIdx !== i) {
+      steps.push({
+        array: [...arr],
+        comparing: [],
+        swapping: [i, minIdx],
+        sorted: [...sorted],
+        passIndex: i,
+      })
+      ;[arr[i], arr[minIdx]] = [arr[minIdx], arr[i]]
+    }
+
+    sorted.push(i)
+    steps.push({
+      array: [...arr],
+      comparing: [],
+      swapping: [],
+      sorted: [...sorted],
+      description: `${arr[i]} 位置确定 🎉`,
+    })
+  }
+
+  sorted.push(n - 1)
+  steps.push({
+    array: [...arr],
+    comparing: [],
+    swapping: [],
+    sorted: [...sorted],
+    description: "排序全部完成 🎉",
+  })
+
+  return steps
+}
+
 export function generateBubbleSortSteps(input: number[]): SortStep[] {
   const arr = [...input]
   const steps: SortStep[] = []
@@ -51,7 +115,6 @@ export function generateBubbleSortSteps(input: number[]): SortStep[] {
           passIndex: i,
           compareIndex: j,
         })
-
         ;[arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]
       }
     }
