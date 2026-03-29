@@ -230,7 +230,6 @@ export const SelectionSort: React.FC = () => {
                 <div
                   className="absolute font-bold"
                   style={{
-                    // color: "#FECA57",
                     color: colors[1],
                     bottom: 100 + (value / maxVal) * 380 + 8,
                     left: i * 102 + 51 - 12,
@@ -240,6 +239,21 @@ export const SelectionSort: React.FC = () => {
                   本轮最小 📌
                 </div>
               )}
+              {currentStep?.passIndex !== undefined &&
+                i === currentStep.passIndex && (
+                  <div
+                    className="absolute font-bold"
+                    style={{
+                      // color: "#FF6B6B",
+                      color: colors[1],
+                      bottom: 100 + (value / maxVal) * 380 + 8,
+                      left: i * 102 + 51 - 12,
+                      transform: "translateX(-50%)",
+                    }}
+                  >
+                    待交换 📌
+                  </div>
+                )}
             </>
           )
         })}
