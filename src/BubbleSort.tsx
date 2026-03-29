@@ -245,21 +245,23 @@ export const BubbleSort: React.FC = () => {
               totalBars={INITIAL_ARRAY.length}
               entranceDelay={INTRO_FRAMES}
               mascot={
-                // <span className="absolute top-[-2.6rem] scale-300">
-                //   {/* 🐠 */}🐟{/* 🐡 */}
-                //   {/* 🎣 */}
-                //   <span className="absolute left-[8px] top-[-6px] text-[10px]">
-                //     🫧
-                //   </span>
-                // </span>
+                <span className="absolute top-[-2.6rem] scale-300">
+                  🐠{/* 🐟 */}
+                  {/* 🐡 */}
+                  {/* 🎣 */}
+                  <span className="absolute left-[8px] top-[-4px] text-[8px]">
+                    🫧
+                  </span>
+                </span>
+
                 // <Gopher
                 //   className="absolute top-[-3rem] scale-170"
                 //   bodyColor={colors[1]}
                 // />
-                <MotorcycleGopher
-                  className="absolute top-[-3.1rem] text-xl w-[60%]"
-                  bodyColor={colors[1]}
-                />
+                // <MotorcycleGopher
+                //   className="absolute top-[-3.1rem] text-xl w-[60%]"
+                //   bodyColor={colors[1]}
+                // />
               }
             />
           )
